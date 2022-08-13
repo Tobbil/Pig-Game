@@ -17,6 +17,7 @@ const btnHold = document.querySelector('.btn--hold');
 score0El.textContent = 0;
 score1El.textContent = 0;
 dice.classList.toggle('hidden');
+let playing = true;
 
 // Stored values
 const scores = [0, 0];
@@ -25,7 +26,7 @@ let activePlayer = 0;
 
 // Rolling the dice
 btnRoll.addEventListener('click', function () {
-	if (scores[0] < 100 && scores[1] < 100) {
+	if (playing) {
 		// Generating random dice roll
 		const randomNum = Math.trunc(Math.random() * 6) + 1;
 		// Display the dice
@@ -55,8 +56,17 @@ btnHold.addEventListener('click', function () {
 	scores[activePlayer] += currentScore;
 	currentScore = 0;
 	if (scores[activePlayer] >= 100) {
-		if (activePlayer === 0) score0El.textContent = `WINS!`;
-		else score1El.textContent = `WINS!`;
+		if (activePlayer === 0) {
+			score0El.textContent = `WINS!`;
+			player0El.classList.add('player--winner');
+			playing = false;
+			dice.classList.toggle('hidden');
+		} else {
+			score1El.textContent = `WINS!`;
+			player1El.classList.add('player--winner');
+			playing = false;
+			dice.classList.toggle('hidden');
+		}
 	} else {
 		document.getElementById(`current--${activePlayer}`).textContent =
 			currentScore;
@@ -76,7 +86,10 @@ btnNew.addEventListener('click', function () {
 	score1El.textContent = 0;
 	currentScore = 0;
 	activePlayer = 0;
+	player0El.classList.remove('player--winner');
+	player1El.classList.remove('player--winner');
 	currentScore0El.textContent = 0;
 	currentScore1El.textContent = 0;
 	dice.classList.toggle('hidden');
+	playing = true;
 });
