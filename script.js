@@ -14,7 +14,7 @@ const btnHold = document.querySelector('.btn--hold');
 // Starting conditions
 score0El.textContent = 0;
 score1El.textContent = 0;
-dice.classList.add('hidden');
+dice.classList.toggle('hidden');
 
 // Stored values
 const scores = [0, 0];
@@ -72,5 +72,5 @@ btnNew.addEventListener('click', function () {
 	activePlayer = 0;
 	currentScore0El.textContent = 0;
 	currentScore1El.textContent = 0;
-	dice.classList.add('hidden');
+	dice.classList.toggle('hidden');
 });
