@@ -14,15 +14,28 @@ const btnNew = document.querySelector('.btn--new');
 const btnHold = document.querySelector('.btn--hold');
 
 // Starting conditions
-score0El.textContent = 0;
-score1El.textContent = 0;
-dice.classList.toggle('hidden');
-let playing = true;
+let scores, currentScore, activePlayer, playing;
 
-// Stored values
-const scores = [0, 0];
-let currentScore = 0;
-let activePlayer = 0;
+const init = function () {
+	scores = [0, 0];
+	currentScore = 0;
+	activePlayer = 0;
+
+	score0El.textContent = 0;
+	score1El.textContent = 0;
+	currentScore0El.textContent = 0;
+	currentScore1El.textContent = 0;
+
+	player0El.classList.remove('player--winner');
+	player1El.classList.remove('player--winner');
+	player0El.classList.add('player--active');
+	player1El.classList.remove('player--active');
+	dice.classList.add('hidden');
+
+	playing = true;
+};
+
+init();
 
 // Rolling the dice
 btnRoll.addEventListener('click', function () {
@@ -55,17 +68,17 @@ btnRoll.addEventListener('click', function () {
 btnHold.addEventListener('click', function () {
 	scores[activePlayer] += currentScore;
 	currentScore = 0;
-	if (scores[activePlayer] >= 100) {
+	if (scores[activePlayer] >= 10) {
 		if (activePlayer === 0) {
 			score0El.textContent = `WINS!`;
 			player0El.classList.add('player--winner');
 			playing = false;
-			dice.classList.toggle('hidden');
+			dice.classList.add('hidden');
 		} else {
 			score1El.textContent = `WINS!`;
 			player1El.classList.add('player--winner');
 			playing = false;
-			dice.classList.toggle('hidden');
+			dice.classList.add('hidden');
 		}
 	} else {
 		document.getElementById(`current--${activePlayer}`).textContent =
@@ -80,16 +93,5 @@ btnHold.addEventListener('click', function () {
 });
 
 btnNew.addEventListener('click', function () {
-	scores[0] = 0;
-	scores[1] = 0;
-	score0El.textContent = 0;
-	score1El.textContent = 0;
-	currentScore = 0;
-	activePlayer = 0;
-	player0El.classList.remove('player--winner');
-	player1El.classList.remove('player--winner');
-	currentScore0El.textContent = 0;
-	currentScore1El.textContent = 0;
-	dice.classList.toggle('hidden');
-	playing = true;
+	init();
 });
