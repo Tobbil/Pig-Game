@@ -63,6 +63,8 @@ btnHold.addEventListener('click', function () {
 		if (activePlayer === 0) score0El.textContent = scores[0];
 		else score1El.textContent = scores[1];
 		activePlayer = activePlayer === 0 ? 1 : 0;
+		player0El.classList.toggle('player--active');
+		player1El.classList.toggle('player--active');
 	}
 	console.log(scores);
 });
